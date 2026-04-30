@@ -1,0 +1,5 @@
+2026-04-30 09:24:56.621 [main] INFO  com.keywordsearch.util.FileValidator - 开始验证文件: test.txt
+2026-04-30 09:24:56.622 [main] INFO  com.keywordsearch.util.FileValidator - 文件验证通过: test.txt
+2026-04-30 09:24:56.625 [main] INFO  com.keywordsearch.service.FileSearcher - 开始搜索文件: D:\biaoqian\code_06\test.txt, 关键词数量: 3
+2026-04-30 09:24:56.626 [main] INFO  com.keywordsearch.service.FileSearcher - 文件读取完成，总行数: 10, 匹配行数: 7
+2026-04-30 09:24:56.627 [main] INFO  com.keywordsearch.service.FileSearcher - 搜索完成，找到 3 个关键词，共 11 次匹配

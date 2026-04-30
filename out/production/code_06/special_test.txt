@@ -1,0 +1,9 @@
+这是一个测试特殊字符的文本文件。
+第一行包含带空格的关键词：error code occurred
+第二行包含特殊字符：user@123 logged in
+第三行：error code 和 user@123 同时出现
+第四行：error code error code 重复出现
+第五行：admin@domain.com 是邮箱格式
+第六行：test#123$%^ 包含多个特殊字符
+第七行：这一行没有特殊关键词
+第八行：再次出现 error code 和 user@123

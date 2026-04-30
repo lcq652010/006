@@ -113,8 +113,9 @@ public class ConsolePrinter {
      * <p>显示完整的使用帮助信息，包括：
      * <ul>
      *   <li>工具名称和版本</li>
-     *   <li>命令行用法</li>
+     *   <li>命令行用法（包括选项参数）</li>
      *   <li>功能说明</li>
+     *   <li>日志配置选项</li>
      *   <li>重要提示（关于带空格关键词的使用方法）</li>
      *   <li>使用示例</li>
      * </ul>
@@ -125,23 +126,60 @@ public class ConsolePrinter {
         System.out.println(SEPARATOR);
         System.out.println();
         System.out.println("用法:");
-        System.out.println("  java com.keywordsearch.Main <文件路径> <关键词1> [关键词2] [关键词3] ...");
+        System.out.println("  java com.keywordsearch.Main [选项] <文件路径> <关键词1> [关键词2] [关键词3] ...");
+        System.out.println();
+        System.out.println("选项说明:");
+        System.out.println("  --log-level=DEBUG|INFO|WARN|ERROR");
+        System.out.println("        设置日志级别（默认: INFO）");
+        System.out.println("        DEBUG: 最详细的调试信息");
+        System.out.println("        INFO: 一般运行信息");
+        System.out.println("        WARN: 警告信息");
+        System.out.println("        ERROR: 错误信息");
+        System.out.println();
+        System.out.println("  --log-type=CONSOLE|FILE");
+        System.out.println("        设置日志输出类型（默认: CONSOLE）");
+        System.out.println("        CONSOLE: 输出到控制台");
+        System.out.println("        FILE: 输出到文件");
+        System.out.println();
+        System.out.println("  --log-file=<路径>");
+        System.out.println("        设置日志文件路径（默认: keywordsearch.log）");
+        System.out.println("        仅当 --log-type=FILE 时有效");
+        System.out.println();
+        System.out.println("  --case-sensitive");
+        System.out.println("        启用大小写敏感匹配（默认: 不敏感）");
         System.out.println();
         System.out.println("说明:");
         System.out.println("  - 支持 .txt 和 .log 格式的文本文件");
         System.out.println("  - 可指定单个或多个关键词进行检索");
         System.out.println("  - 统计每个关键词出现的总次数");
         System.out.println("  - 列出包含关键词的所有行号");
+        System.out.println("  - 集成日志系统，可追踪执行过程和异常");
         System.out.println();
         System.out.println("重要提示:");
         System.out.println("  - 如果关键词包含空格，请用双引号将其包裹");
         System.out.println("  - 特殊字符（如 @、#、$、% 等）会被正确处理");
+        System.out.println("  - 选项参数必须放在文件路径和关键词之前");
         System.out.println();
         System.out.println("示例:");
+        System.out.println("  # 基本用法");
         System.out.println("  java com.keywordsearch.Main test.txt error");
         System.out.println("  java com.keywordsearch.Main app.log error warning info");
+        System.out.println();
+        System.out.println("  # 带空格的关键词（必须用引号包裹）");
         System.out.println("  java com.keywordsearch.Main special_test.txt \"error code\"");
         System.out.println("  java com.keywordsearch.Main special_test.txt user@123 \"error code\"");
+        System.out.println();
+        System.out.println("  # 使用 DEBUG 级别日志（查看详细执行过程）");
+        System.out.println("  java com.keywordsearch.Main --log-level=DEBUG test.txt error");
+        System.out.println();
+        System.out.println("  # 使用文件日志");
+        System.out.println("  java com.keywordsearch.Main --log-type=FILE --log-file=search.log test.txt error");
+        System.out.println();
+        System.out.println("  # 大小写敏感匹配");
+        System.out.println("  java com.keywordsearch.Main --case-sensitive app.log ERROR WARNING");
+        System.out.println();
+        System.out.println("  # 组合使用多个选项");
+        System.out.println("  java com.keywordsearch.Main --log-level=DEBUG --case-sensitive test.txt \"error code\"");
         System.out.println();
     }
 

@@ -1,0 +1,12 @@
+2024-01-15 10:00:01 INFO  Application started successfully
+2024-01-15 10:00:02 INFO  Loading configuration...
+2024-01-15 10:00:03 WARNING  Low disk space detected
+2024-01-15 10:00:04 INFO  Database connection established
+2024-01-15 10:00:05 ERROR  Failed to connect to external API
+2024-01-15 10:00:06 ERROR  Retry attempt 1 failed
+2024-01-15 10:00:07 INFO  Retry attempt 2 succeeded
+2024-01-15 10:00:08 WARNING  Memory usage exceeds 80%
+2024-01-15 10:00:09 INFO  Processing request...
+2024-01-15 10:00:10 ERROR  Null pointer exception occurred
+2024-01-15 10:00:11 INFO  Application shutdown requested
+2024-01-15 10:00:12 INFO  Cleanup completed

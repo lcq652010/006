@@ -12,6 +12,7 @@ import java.util.List;
  *   <li>检查文件是否存在</li>
  *   <li>验证文件格式是否受支持（.txt、.log）</li>
  *   <li>综合验证文件的有效性</li>
+ *   <li>记录验证过程的日志</li>
  * </ul>
  * 
  * <p>设计特点：
@@ -19,9 +20,13 @@ import java.util.List;
  *   <li>使用私有构造函数，禁止实例化</li>
  *   <li>所有方法都是静态方法，便于直接调用</li>
  *   <li>包含内部类 ValidationResult，用于返回验证结果和错误信息</li>
+ *   <li>集成日志系统，追踪验证过程</li>
  * </ul>
  */
 public class FileValidator {
+    
+    /** 日志实例 */
+    private static final Logger logger = LoggerFactory.getLogger(FileValidator.class);
     
     /** 支持的文件扩展名列表 */
     private static final List<String> SUPPORTED_EXTENSIONS = Arrays.asList(".txt", ".log");
@@ -44,10 +49,13 @@ public class FileValidator {
      */
     public static boolean exists(String filePath) {
         if (filePath == null || filePath.trim().isEmpty()) {
+            logger.debug("文件路径为空，返回 false");
             return false;
         }
         File file = new File(filePath);
-        return file.exists() && file.isFile();
+        boolean exists = file.exists() && file.isFile();
+        logger.debug("检查文件是否存在: {} -> {}", filePath, exists);
+        return exists;
     }
 
     /**
@@ -60,14 +68,17 @@ public class FileValidator {
      */
     public static boolean isValidFileType(String filePath) {
         if (filePath == null || filePath.trim().isEmpty()) {
+            logger.debug("文件路径为空，返回 false");
             return false;
         }
         String lowerPath = filePath.toLowerCase();
         for (String extension : SUPPORTED_EXTENSIONS) {
             if (lowerPath.endsWith(extension)) {
+                logger.debug("文件格式验证通过: {} (扩展名: {})", filePath, extension);
                 return true;
             }
         }
+        logger.warn("文件格式不支持: {}，支持的格式: {}", filePath, SUPPORTED_EXTENSIONS);
         return false;
     }
 
@@ -81,19 +92,33 @@ public class FileValidator {
      *   <li>验证文件格式是否受支持</li>
      * </ol>
      * 
+     * <p>每一步验证都会记录详细的日志，便于追踪验证过程。
+     * 
      * @param filePath 文件路径
      * @return 验证结果对象，包含是否有效和错误信息
      */
     public static ValidationResult validate(String filePath) {
+        logger.info("开始验证文件: {}", filePath);
+        
+        // 检查文件路径是否为空
         if (filePath == null || filePath.trim().isEmpty()) {
+            logger.error("文件路径为空");
             return ValidationResult.error("文件路径不能为空");
         }
+        
+        // 检查文件是否存在
         if (!exists(filePath)) {
+            logger.error("文件不存在: {}", filePath);
             return ValidationResult.error("文件不存在: " + filePath);
         }
+        
+        // 验证文件格式
         if (!isValidFileType(filePath)) {
+            logger.error("文件格式不支持: {}", filePath);
             return ValidationResult.error("不支持的文件格式，支持的格式: " + SUPPORTED_EXTENSIONS);
         }
+        
+        logger.info("文件验证通过: {}", filePath);
         return ValidationResult.success();
     }
 
