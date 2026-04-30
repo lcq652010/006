@@ -66,6 +66,8 @@ public class Main {
             throw new IllegalArgumentException("关键词列表不能为空");
         }
 
+        ConsolePrinter.printSearchInfo(filePath, keywords);
+
         Map<String, SearchResult> results = fileSearcher.search(filePath, keywords);
         ConsolePrinter.printResults(results);
     }

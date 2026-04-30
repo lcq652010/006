@@ -63,9 +63,27 @@ public class ConsolePrinter {
         System.out.println("  - 统计每个关键词出现的总次数");
         System.out.println("  - 列出包含关键词的所有行号");
         System.out.println();
+        System.out.println("重要提示:");
+        System.out.println("  - 如果关键词包含空格，请用双引号将其包裹");
+        System.out.println("  - 特殊字符（如 @、#、$、% 等）会被正确处理");
+        System.out.println();
         System.out.println("示例:");
         System.out.println("  java com.keywordsearch.Main test.txt error");
         System.out.println("  java com.keywordsearch.Main app.log error warning info");
+        System.out.println("  java com.keywordsearch.Main special_test.txt \"error code\"");
+        System.out.println("  java com.keywordsearch.Main special_test.txt user@123 \"error code\"");
+        System.out.println();
+    }
+
+    public static void printSearchInfo(String filePath, List<String> keywords) {
+        System.out.println(SEPARATOR);
+        System.out.println("开始检索");
+        System.out.println(SEPARATOR);
+        System.out.println("目标文件: " + filePath);
+        System.out.println("检索关键词:");
+        for (int i = 0; i < keywords.size(); i++) {
+            System.out.println("  " + (i + 1) + ". \"" + keywords.get(i) + "\"");
+        }
         System.out.println();
     }
 
