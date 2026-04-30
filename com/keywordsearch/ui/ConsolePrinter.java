@@ -5,17 +5,56 @@ import java.util.Map;
 
 import com.keywordsearch.model.SearchResult;
 
+/**
+ * 控制台输出组件类
+ * 
+ * <p>该类负责将搜索结果和使用说明输出到控制台，提供：
+ * <ul>
+ *   <li>搜索结果的格式化输出</li>
+ *   <li>使用说明的显示</li>
+ *   <li>搜索开始前的信息显示</li>
+ *   <li>错误信息的输出</li>
+ * </ul>
+ * 
+ * <p>设计特点：
+ * <ul>
+ *   <li>使用私有构造函数，禁止实例化</li>
+ *   <li>所有方法都是静态方法，便于直接调用</li>
+ *   <li>统一的分隔符样式，保持输出一致性</li>
+ *   <li>清晰的层级结构，便于阅读</li>
+ * </ul>
+ */
 public class ConsolePrinter {
+    
+    /** 输出分隔符，用于美化控制台输出 */
     private static final String SEPARATOR = "========================================";
 
+    /**
+     * 私有构造函数
+     * 
+     * <p>禁止实例化该工具类
+     */
     private ConsolePrinter() {
     }
 
+    /**
+     * 输出搜索结果
+     * 
+     * <p>格式化输出所有关键词的搜索结果，包括：
+     * <ul>
+     *   <li>标题分隔符</li>
+     *   <li>每个关键词的详细结果（出现次数、行号列表）</li>
+     *   <li>结尾分隔符</li>
+     * </ul>
+     * 
+     * @param results 搜索结果映射，键为关键词，值为对应的搜索结果
+     */
     public static void printResults(Map<String, SearchResult> results) {
         System.out.println(SEPARATOR);
         System.out.println("关键词检索结果");
         System.out.println(SEPARATOR);
 
+        // 遍历输出每个关键词的结果
         for (Map.Entry<String, SearchResult> entry : results.entrySet()) {
             SearchResult result = entry.getValue();
             printSingleResult(result);
@@ -25,6 +64,18 @@ public class ConsolePrinter {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * 输出单个关键词的搜索结果
+     * 
+     * <p>格式化输出单个关键词的详细信息：
+     * <ul>
+     *   <li>关键词名称（带引号）</li>
+     *   <li>出现次数</li>
+     *   <li>包含该关键词的行号列表（如果未找到则显示"无"）</li>
+     * </ul>
+     * 
+     * @param result 单个关键词的搜索结果
+     */
     public static void printSingleResult(SearchResult result) {
         System.out.println();
         System.out.println("关键词: \"" + result.getKeyword() + "\"");
@@ -40,6 +91,13 @@ public class ConsolePrinter {
         }
     }
 
+    /**
+     * 输出行号列表
+     * 
+     * <p>将行号列表格式化为逗号分隔的字符串输出
+     * 
+     * @param lineNumbers 行号列表
+     */
     private static void printLineNumbers(List<Integer> lineNumbers) {
         for (int i = 0; i < lineNumbers.size(); i++) {
             if (i > 0) {
@@ -49,6 +107,18 @@ public class ConsolePrinter {
         }
     }
 
+    /**
+     * 输出使用说明
+     * 
+     * <p>显示完整的使用帮助信息，包括：
+     * <ul>
+     *   <li>工具名称和版本</li>
+     *   <li>命令行用法</li>
+     *   <li>功能说明</li>
+     *   <li>重要提示（关于带空格关键词的使用方法）</li>
+     *   <li>使用示例</li>
+     * </ul>
+     */
     public static void printUsage() {
         System.out.println(SEPARATOR);
         System.out.println("文本文件关键词检索工具 - Java8");
@@ -75,6 +145,21 @@ public class ConsolePrinter {
         System.out.println();
     }
 
+    /**
+     * 输出搜索开始前的信息
+     * 
+     * <p>在搜索开始前显示目标文件和检索关键词列表，帮助用户：
+     * <ul>
+     *   <li>确认搜索的目标文件是否正确</li>
+     *   <li>确认程序解析的关键词是否符合预期</li>
+     *   <li>诊断参数传递问题（如空格被拆分）</li>
+     * </ul>
+     * 
+     * <p>关键词会以编号列表的形式显示，并用引号包裹，便于用户查看是否被正确解析。
+     * 
+     * @param filePath 目标文件路径
+     * @param keywords 检索关键词列表
+     */
     public static void printSearchInfo(String filePath, List<String> keywords) {
         System.out.println(SEPARATOR);
         System.out.println("开始检索");
@@ -87,6 +172,13 @@ public class ConsolePrinter {
         System.out.println();
     }
 
+    /**
+     * 输出错误信息
+     * 
+     * <p>将错误信息输出到标准错误流（System.err）
+     * 
+     * @param message 错误信息
+     */
     public static void printError(String message) {
         System.err.println("错误: " + message);
     }
